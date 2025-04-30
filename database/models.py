@@ -1,8 +1,4 @@
-from uuid import uuid4
-
-from slugify import slugify
 from sqlalchemy import Column, Integer, String, BigInteger, Boolean, ForeignKey
-from sqlalchemy.event import listens_for
 from sqlalchemy.orm import DeclarativeBase, relationship
 
 
@@ -33,10 +29,3 @@ class Car(Base):
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
 
     user = relationship("User", back_populates="cars")
-
-
-@listens_for(Car, "before_insert")
-def generate_slug(mapper, connection, target):
-    """Автоматическая генерация поля slug для модели Car"""
-    if not target.slug:
-        target.slug = slugify(f"{target.name[:30]}-{str(uuid4())[:4]}")

@@ -2,14 +2,14 @@ from aiogram import Router
 from aiogram.filters import Command
 from aiogram.types import Message
 
-from services.database_services import exists_user, create_user
+from services.database_services import get_user_by_id, create_user
 
 user_router = Router()
 
 
 @user_router.message(Command(commands="start"))
 async def process_start_command(message: Message):
-    user = await exists_user(message.from_user.id)
+    user = await get_user_by_id(message.from_user.id)
 
     if user is None:
         await create_user(message.from_user.first_name,
@@ -35,7 +35,7 @@ async def process_start_command(message: Message):
 
 @user_router.message(Command(commands="help"))
 async def process_help_command(message: Message):
-    user = await exists_user(message.from_user.id)
+    user = await get_user_by_id(message.from_user.id)
 
     if user is None:
         await message.answer("Для начала введите команду /start")
