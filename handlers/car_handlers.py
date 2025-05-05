@@ -10,7 +10,7 @@ car_router = Router()
 @car_router.message(Command(commands="add_new_car"))
 async def start_add_new_car(message: Message):
     cars = await get_cars_by_user_id(message.from_user.id)
-    if len(cars) >= 1:
+    if len(cars) >= 3:
         await message.answer("Что бы добавить больше 1 автомобиля необходимо "
                              "приобрести премиум подписку\n\n"
                              "/premium (скоро...)")
