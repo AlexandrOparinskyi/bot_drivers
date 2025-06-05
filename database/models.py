@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, BigInteger, Boolean, ForeignKey
+from sqlalchemy import Column, Integer, String, BigInteger, Boolean, ForeignKey, Text
 from sqlalchemy.orm import DeclarativeBase, relationship
 
 
@@ -28,4 +28,12 @@ class Car(Base):
     slug = Column(String(155), nullable=False, unique=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
 
-    user = relationship("User", back_populates="cars")
+    user = relationship("User", back_populates="cars", lazy="selectin")
+
+
+# class AddCarAnswer(Base):
+#     """Модель ответов при добавлении машин"""
+#     __tablename__ = "add_car_answers"
+#
+#     handler = Column(String, nullable=False, unique=True)
+#     text = Column(Text, nullable=False)

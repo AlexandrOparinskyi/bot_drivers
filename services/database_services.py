@@ -55,8 +55,3 @@ async def create_car(car_name: str, user_id: int) -> None:
             await session.commit()
     except Exception as e:
         logging.error(f"Car not created: {e}")
-
-
-async def get_cars_by_user_id(user_id: int):
-    user = await get_user_by_id(user_id)
-    return user.cars
